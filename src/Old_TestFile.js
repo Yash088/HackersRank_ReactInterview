@@ -1,19 +1,10 @@
-//<<<<<---- instruction for file: ---->>>
-
-// App.test.js File was the new file that I have modified and fixed.
-// Old_TestFile.js is the file that was in the round and two testcases is wrong in that file.
-// Also in the app.test.js file if you remove the line which has comment
-// Wait for UI update
-// All test case will work fine.
-
-// <---------    ------>
-
 import React from "react";
 import App from "./App";
 import { render, cleanup, fireEvent } from "@testing-library/react";
 
 import "@testing-library/jest-dom/extend-expect";
 
+//import userEvent
 import userEvent from "@testing-library/user-event";
 
 const testIds = {
@@ -74,7 +65,7 @@ describe("Instructions Board", () => {
     expect(instructionInput.value).toBeFalsy();
   });
 
-  it("Add Multiple Instructions and check their existence", () => {
+  it("Add Multiple Instructions and check their existance", () => {
     addInstructionsGroup();
     for (let i = 0; i < sampleInstructions.length; i++) {
       const instructionId = instructions.children[i];
@@ -98,82 +89,68 @@ describe("Instructions Board", () => {
     expect(topSwapUpButton).toBeDisabled();
   });
 
-  it("Bring bottommost instruction to top, then disable swap-up button", async () => {
+  it("Bring bottommost instruction to top, then disable swap-up button", () => {
     addInstructionsGroup();
     expect(
       instructions.children[instructions.children.length - 1].children[0]
         .children[1].textContent
     ).toBe(sampleInstructions[sampleInstructions.length - 1]);
-
     let moveUpButton =
       instructions.children[instructions.children.length - 1].children[0]
         .children[2].children[1];
     userEvent.click(moveUpButton);
-    await new Promise((resolve) => setTimeout(resolve, 100)); // Wait for UI update
     let iMoved =
       instructions.children[instructions.children.length - 2].children[0]
         .children[1];
     expect(iMoved.textContent).toBe(
       sampleInstructions[sampleInstructions.length - 1]
     );
-
     moveUpButton =
       instructions.children[instructions.children.length - 2].children[0]
         .children[2].children[1];
     userEvent.click(moveUpButton);
-    await new Promise((resolve) => setTimeout(resolve, 100)); // Wait for UI update
     iMoved =
       instructions.children[instructions.children.length - 3].children[0]
         .children[1];
     expect(iMoved.textContent).toBe(
       sampleInstructions[sampleInstructions.length - 1]
     );
-
     moveUpButton =
       instructions.children[instructions.children.length - 3].children[0]
         .children[2].children[1];
     userEvent.click(moveUpButton);
-    await new Promise((resolve) => setTimeout(resolve, 100)); // Wait for UI update
     iMoved =
       instructions.children[instructions.children.length - 4].children[0]
         .children[1];
     expect(iMoved.textContent).toBe(
       sampleInstructions[sampleInstructions.length - 1]
     );
-
     moveUpButton =
       instructions.children[instructions.children.length - 4].children[0]
         .children[2].children[1];
     expect(moveUpButton).toBeDisabled();
   });
 
-  it("Bring topmost instruction to bottom, then disable swap-down button", async () => {
+  it("Bring topmost instruction to bottom, then disable swap-down button", () => {
     addInstructionsGroup();
     expect(instructions.children[0].children[0].children[1].textContent).toBe(
       sampleInstructions[0]
     );
-
     let moveDownButton =
       instructions.children[0].children[0].children[2].children[0];
     userEvent.click(moveDownButton);
-    await new Promise((resolve) => setTimeout(resolve, 100)); // Wait for UI update
     let iMoved = instructions.children[1].children[0].children[1];
     expect(iMoved.textContent).toBe(sampleInstructions[0]);
-
     moveDownButton =
       instructions.children[1].children[0].children[2].children[0];
     userEvent.click(moveDownButton);
-    await new Promise((resolve) => setTimeout(resolve, 100)); // Wait for UI update
     iMoved = instructions.children[2].children[0].children[1];
     expect(iMoved.textContent).toBe(sampleInstructions[0]);
-
     moveDownButton =
       instructions.children[2].children[0].children[2].children[0];
     userEvent.click(moveDownButton);
-    await new Promise((resolve) => setTimeout(resolve, 100)); // Wait for UI update
     iMoved = instructions.children[3].children[0].children[1];
     expect(iMoved.textContent).toBe(sampleInstructions[0]);
-
     moveDownButton =
       instructions.children[3].children[0].children[2].children[0];
     expect(moveDownButton).toBeDisabled();
